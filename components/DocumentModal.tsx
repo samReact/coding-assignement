@@ -1,5 +1,5 @@
 import { StyleSheet,Pressable, Text, View, Modal } from 'react-native';
-import { useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 type Props = {
   document: {
@@ -10,7 +10,7 @@ type Props = {
   }
 }
 
-export default function DocumentModal(props: Props):any {
+export default function DocumentModal(props: Props):ReactElement {
   const [modalVisible, setModalVisible] = useState(false);
   const {title,description,updatedAt,createdAt} = props.document
 
