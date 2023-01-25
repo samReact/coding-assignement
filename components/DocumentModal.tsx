@@ -1,95 +1,103 @@
-import { StyleSheet,Pressable, Text, View, Modal } from 'react-native';
 import React, { ReactElement, useState } from "react";
+import {
+  StyleSheet,
+  Pressable,
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = {
   document: {
-    title: string
-    description: string
-    updatedAt: string
-    createdAt: string
-  }
-}
+    title: string;
+    description: string;
+    updatedAt: string;
+    createdAt: string;
+  };
+};
 
-export default function DocumentModal(props: Props):ReactElement {
-  const [modalVisible, setModalVisible] = useState(false);
-  const {title,description,updatedAt,createdAt} = props.document
+export default function DocumentModal(props: Props): ReactElement {
+  const { title, description, updatedAt, createdAt } = props.document;
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-
-    return (
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>{title}</Text>
-              <Text style={styles.modalText}>{description}</Text>
-              <Text style={styles.modalText}>{updatedAt}</Text>
-              <Text style={styles.modalText}>{createdAt}</Text>
-
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-        <Pressable
-          style={styles.item}
-          onPress={() => setModalVisible(true)}>
-          <Text style={styles.textStyle}>{title}</Text>
-        </Pressable>
+  return (
+    <View style={styles.container}>
+      <Modal
+        animationType="fade"
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalView}>
+          <Pressable onPress={() => setModalVisible(!modalVisible)}>
+            <Ionicons name="close-circle-outline" size={42} />
+          </Pressable>
+          <Text style={styles.modalText}>{title}</Text>
+          <Text style={styles.modalText}>{description}</Text>
+          <Text style={styles.modalText}>{updatedAt}</Text>
+          <Text style={styles.modalText}>{createdAt}</Text>
+        </View>
+      </Modal>
+      <View style={styles.rowBack}>
+        <TouchableOpacity
+          style={[styles.backRightBtn, styles.backRightBtnLeft]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Ionicons name="create-outline" size={32} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={[styles.backRightBtn, styles.backRightBtnRight]}
+        >
+          <Ionicons name="eye-outline" size={32} color="white" />
+        </TouchableOpacity>
       </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-  },
-  centeredView: {
+  container: {
     flex: 1,
+    marginBottom: 10,
   },
+  item: {
+    backgroundColor: "#f9c2ff",
+    padding: 20,
+  },
+
   modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
+    flex: 1,
     padding: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
-})
-
+  backRightBtnLeft: {
+    backgroundColor: "orange",
+    right: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: "green",
+    right: 0,
+  },
+  backRightBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 0,
+    top: 0,
+    width: 75,
+  },
+  rowBack: {
+    backgroundColor: "#DDD",
+    height: "100%",
+  },
+});
