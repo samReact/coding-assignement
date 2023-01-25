@@ -1,20 +1,17 @@
-import React, { ReactElement } from 'react';
-import {StyleSheet, Image, View, StatusBar} from 'react-native';
-
+import { ReactElement } from "react";
+import { StyleSheet, Image, View, StatusBar } from "react-native";
 
 const logo = require("../assets/logo.jpeg");
 
-
-export default function Header():ReactElement  {
-
+export default function Header(): ReactElement {
   return (
     <View style={styles.container}>
       <View style={styles.view}>
-            <Image source={logo} style={styles.image} />
+        <Image source={logo} style={styles.image} />
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -22,9 +19,9 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: StatusBar.currentHeight
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: StatusBar.currentHeight,
   },
-  image: {width: 150, height: 50},
+  image: { width: 150, height: 50 },
 });
