@@ -24,3 +24,15 @@ export const DOCUMENTS_MUTATION = gql`
     }
   }
 `;
+
+export const DOCUMENT_QUERY = gql`
+  query MyQuery($id: ID!) {
+    getDemoDocument(id: $id) {
+      id
+      title
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
