@@ -17,6 +17,7 @@ import { I18nContext } from "../App";
 export type Elements = {
   id: string;
   title: string;
+  updatedAt: string;
 };
 
 type DocumentsQuery = {
@@ -55,11 +56,19 @@ export default function Documents() {
       <Text style={styles.title}>{i18n.t("documents")}</Text>
       <SwipeListView
         data={data?.findDemoDocuments.elements}
-        renderItem={(data) => (
-          <View style={styles.rowFront}>
-            <Text style={styles.textStyle}>{data.item.title}</Text>
-          </View>
-        )}
+        renderItem={(data) => {
+          const updatedDate = new Date(data.item.updatedAt).toLocaleDateString(
+            "fr-CH"
+          );
+          return (
+            <View style={styles.rowFront}>
+              <Text style={styles.textStyle}>{data.item.title}</Text>
+              <Text style={styles.date}>
+                {i18n.t("updated")} {updatedDate}
+              </Text>
+            </View>
+          );
+        }}
         renderHiddenItem={(data) => {
           return (
             <View style={styles.rowBack}>
@@ -131,5 +140,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     top: 0,
     width: 75,
+  },
+  date: {
+    fontStyle: "italic",
+    opacity: 0.5,
   },
 });
