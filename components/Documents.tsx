@@ -17,9 +17,6 @@ import { I18nContext } from "../App";
 export type Elements = {
   id: string;
   title: string;
-  description: string;
-  updatedAt: string;
-  createdAt: string;
 };
 
 type DocumentsQuery = {

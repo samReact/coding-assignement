@@ -6,9 +6,6 @@ export const DOCUMENTS_QUERY = gql`
       elements {
         id
         title
-        description
-        createdAt
-        updatedAt
       }
     }
   }

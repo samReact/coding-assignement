@@ -13,7 +13,14 @@ import { useLocation, useParams } from "react-router-native";
 import DocumentForm from "./DocumentForm";
 import { I18nContext } from "../App";
 import { DOCUMENT_QUERY } from "../gql/Queries";
-import { Elements } from "./Documents";
+
+export type Elements = {
+  id: string;
+  title: string;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+};
 
 type DocumentQuery = {
   getDemoDocument: Elements;
@@ -58,11 +65,6 @@ export default function Document(): ReactElement {
   }
   const { title, description, updatedAt, createdAt } = data?.getDemoDocument!;
 
-  function handleSave(): void {
-    if (!editable) {
-      return setEditable(true);
-    }
-  }
   const updatedDate = new Date(updatedAt).toLocaleDateString("fr-CH");
   const createdDate = new Date(createdAt).toLocaleDateString("fr-CH");
 
