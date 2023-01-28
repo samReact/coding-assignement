@@ -1,15 +1,9 @@
 import { ReactElement } from "react";
-import {
-  StyleSheet,
-  Image,
-  View,
-  StatusBar,
-  TouchableOpacity,
-  Switch,
-  Text,
-} from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { StyleSheet, Image, View, StatusBar, Switch, Text } from "react-native";
 import { useLocation, useNavigate } from "react-router-native";
+import colorsConstants from "../constants/colors.constants";
+
+import Button from "./Button";
 
 const logo = require("../assets/logo.jpeg");
 
@@ -29,16 +23,21 @@ export default function Header(props: Props): ReactElement {
     <View style={styles.container}>
       <View style={styles.view}>
         {pathname !== "/" && (
-          <TouchableOpacity onPress={() => navigate("/")} style={styles.arrow}>
-            <Ionicons name={"arrow-back-outline"} size={32} />
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigate("/")}
+            backgroundColor="transparent"
+            iconColor="#000"
+            iconName="arrow-back-outline"
+            style={styles.arrow}
+          />
         )}
         <Image source={logo} style={styles.logo} />
         <View style={styles.switchContainer}>
           <Text style={styles.locale}>FR</Text>
           <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={"#81b0ff"}
+            trackColor={{
+              true: colorsConstants.secondary,
+            }}
             onValueChange={toggleSwitch}
             value={isEnabled}
           />

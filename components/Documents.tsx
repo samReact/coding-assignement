@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-native";
 
 import { DOCUMENTS_QUERY } from "../gql/Queries";
 import { I18nContext } from "../App";
+import colorsConstants from "../constants/colors.constants";
 
 export type Elements = {
   id: string;
@@ -106,32 +107,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   rowFront: {
-    height: 65,
-    backgroundColor: "#fff",
-    marginBottom: 10,
-    borderColor: "#81b0ff",
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 12,
+    backgroundColor: colorsConstants.white,
+    borderBottomWidth: 2,
+    borderBottomColor: "rgba(0,0,0,0.1)",
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   textStyle: {
     fontWeight: "bold",
     fontSize: 18,
   },
   rowBack: {
-    backgroundColor: "#DDD",
+    backgroundColor: colorsConstants.gray,
     height: 65,
-    borderRadius: 10,
   },
   buttonLeft: {
-    backgroundColor: "#81b0ff",
+    backgroundColor: colorsConstants.warning,
     right: 75,
   },
   buttonRight: {
-    backgroundColor: "#1ee156",
+    backgroundColor: colorsConstants.secondary,
     right: 0,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
   },
   button: {
     alignItems: "center",
@@ -143,6 +139,6 @@ const styles = StyleSheet.create({
   },
   date: {
     fontStyle: "italic",
-    opacity: 0.5,
+    color: colorsConstants.textSecondary,
   },
 });

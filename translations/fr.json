@@ -2,6 +2,8 @@
   "fr": {
     "documents": "Mes documents",
     "created": "Créé le",
-    "updated": "Mise à jour le"
+    "updated": "Mise à jour le",
+    "description": "Description",
+    "title": "Titre"
   }
 }

@@ -1,18 +1,14 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { QueryResult, useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-native";
 
 import DocumentForm from "./DocumentForm";
 import { I18nContext } from "../App";
 import { DOCUMENT_QUERY } from "../gql/Queries";
+import colorsConstants from "../constants/colors.constants";
+
+import Button from "./Button";
 
 export type Elements = {
   id: string;
@@ -52,7 +48,7 @@ export default function Document(): ReactElement {
   }, [state]);
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#000" />;
+    return <ActivityIndicator size="large" color={colorsConstants.primary} />;
   }
 
   if (error) {
@@ -78,24 +74,28 @@ export default function Document(): ReactElement {
           setEditable={setEditable}
         />
       ) : (
-        <>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
-          <View style={styles.dateContainer}>
-            <Text style={styles.date}>
-              {i18n.t("created")} {createdDate}
-            </Text>
-            <Text style={styles.date}>
-              {i18n.t("updated")} {updatedDate}
-            </Text>
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.description}>{description}</Text>
           </View>
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => setEditable(true)}
-          >
-            <Ionicons name={"create-outline"} size={32} color="white" />
-          </TouchableOpacity>
-        </>
+          <View>
+            <View style={styles.dateContainer}>
+              <Text style={styles.date}>
+                {i18n.t("created")} {createdDate}
+              </Text>
+              <Text style={styles.date}>
+                {i18n.t("updated")} {updatedDate}
+              </Text>
+            </View>
+            <Button
+              onPress={() => setEditable(true)}
+              backgroundColor={colorsConstants.warning}
+              iconColor="white"
+              iconName="create-outline"
+            />
+          </View>
+        </View>
       )}
     </View>
   );
@@ -104,27 +104,21 @@ export default function Document(): ReactElement {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 10,
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
   description: {
     marginBottom: 15,
   },
   dateContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
     opacity: 0.5,
+    marginBottom: 16,
   },
   date: {
     fontStyle: "italic",
-  },
-  editButton: {
-    backgroundColor: "#81b0ff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
   },
 });

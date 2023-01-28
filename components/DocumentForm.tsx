@@ -1,16 +1,17 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useContext, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useMutation } from "@apollo/client";
 
 import { DOCUMENTS_MUTATION, DOCUMENTS_QUERY } from "../gql/Queries";
+import Button from "./Button";
+import { I18nContext } from "../App";
+import colorsConstants from "../constants/colors.constants";
 
 type Props = {
   id: string | undefined;
@@ -26,6 +27,8 @@ export default function DocumentForm(props: Props): ReactElement {
   const [updatedDescription, setUpdatedDescription] = useState<
     string | undefined
   >();
+
+  const i18n = useContext(I18nContext);
 
   const [documentMutation, { data, loading, error }] = useMutation(
     DOCUMENTS_MUTATION,
@@ -56,37 +59,46 @@ export default function DocumentForm(props: Props): ReactElement {
 
   return (
     <>
-      <TextInput
-        style={styles.input}
-        onChangeText={setUpdatedTitle}
-        value={updatedTitle}
-        defaultValue={title}
+      <View>
+        <View>
+          <Text style={styles.label}>{i18n.t("title")}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setUpdatedTitle}
+            value={updatedTitle}
+            defaultValue={title}
+            placeholder={i18n.t("title")}
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>{i18n.t("description")}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setUpdatedDescription}
+            value={updatedDescription}
+            defaultValue={description}
+            placeholder={i18n.t("description")}
+          />
+        </View>
+      </View>
+      <Button
+        onPress={handleSave}
+        backgroundColor={colorsConstants.secondary}
+        iconColor="white"
+        iconName="save-outline"
       />
-      <TextInput
-        style={styles.input}
-        onChangeText={setUpdatedDescription}
-        value={updatedDescription}
-        defaultValue={description}
-      />
-      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Ionicons name={"save-outline"} size={32} color="white" />
-      </TouchableOpacity>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 55,
     marginBottom: 12,
     borderWidth: 1,
-    padding: 10,
-  },
-  saveButton: {
-    backgroundColor: "#1ee156",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     padding: 8,
+  },
+  label: {
+    fontWeight: "bold",
   },
 });

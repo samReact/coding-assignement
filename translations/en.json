@@ -2,6 +2,8 @@
   "en": {
     "documents": "My documents",
     "created": "Created at",
-    "updated": "updated at"
+    "updated": "updated at",
+    "description": "Description",
+    "title": "Title"
   }
 }
